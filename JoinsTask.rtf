@@ -1,0 +1,206 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Arial;}}
+{\colortbl ;\red0\green77\blue187;}
+{\*\generator Riched20 10.0.19041}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\fs24\lang9 Databse\par
+\par
+-> CREATE DATABASE joins;\par
+-> use joins;\par
+\par
+-> CREATE TABLE orders(ord_no int primary key, purch_amt float, ord_date date, customer_id int(50), salesman_id int(50));\par
+-> select * from orders;\par
+\cf1 +--------+-----------+------------+-------------+-------------+\par
+| ord_no | purch_amt | ord_date   | customer_id | salesman_id |\par
++--------+-----------+------------+-------------+-------------+\par
+|  70001 |     150.5 | 2012-10-05 |        3005 |        5002 |\par
+|  70002 |     65.26 | 2012-10-05 |        3002 |        5001 |\par
+|  70004 |     110.5 | 2012-08-17 |        3009 |        5003 |\par
+|  70005 |    2400.6 | 2012-07-27 |        3007 |        5001 |\par
+|  70007 |     948.5 | 2012-09-10 |        3005 |        5002 |\par
+|  70008 |      5760 | 2012-09-10 |        3002 |        5001 |\par
+|  70009 |    270.65 | 2012-09-10 |        3001 |        5005 |\par
++--------+-----------+------------+-------------+-------------+   \par
+\cf0\par
+-> CREATE TABLE CUSTOMER(customer_id int primary key,cust_name varchar(30),city varchar(20),grade int,salesman_id int);\par
+-> select*from customer;\par
+\par
+\cf1 +-------------+----------------+------------+-------+-------------+\par
+| customer_id | cust_name      | city       | grade | salesman_id |\par
++-------------+----------------+------------+-------+-------------+\par
+|        3002 | Nick Rimando   | New York   |   100 |        5001 |\par
+|        3003 | Jozy Altidor   | Moscow     |   200 |        5007 |\par
+|        3004 | Fabian Johnson | Paris      |   300 |        5006 |\par
+|        3005 | Grahman Zusi   | California |   200 |        5002 |\par
+|        3007 | Brad Davis     | New York   |   200 |        5001 |\par
+|        3008 | Julian Green   | London     |   300 |        5002 |\par
+|        3009 | Geoff Cameron  | Berlin     |   100 |        5003 |\par
++-------------+----------------+------------+-------+-------------+ \par
+\cf0\par
+-> CREATE TABLE SALESMAN(salesman_id int primary key,name varchar(20),city varchar(20),commission float);\par
+-> select*from salesman;\par
+\par
+\cf1 +-------------+------------+----------+------------+\par
+| salesman_id | name       | city     | commission |\par
++-------------+------------+----------+------------+\par
+|        5001 | James Hoog | New York |       0.15 |\par
+|        5002 | Nail Knite | Paris    |       0.13 |\par
+|        5003 | Lauson Hen | San Jose |       0.12 |\par
+|        5005 | Pit Alex   | London   |       0.11 |\par
+|        5006 | Mc Lyon    | Paris    |       0.14 |\par
+|        5007 | Paul Adam  | Rome     |       0.13 |\par
++-------------+------------+----------+------------+ \par
+\par
+\cf0 1)From the above tables write a SQL query using joins to find the salesperson and customer who belongs to same city. Return Salesman, cust_name and city.\par
+\par
+-> SELECT salesman.name AS "Salesman",\par
+    customer.cust_name, customer.city\par
+    FROM salesman,customer\par
+    WHERE salesman.city=customer.city;\par
+\cf1 +------------+----------------+----------+\par
+| Salesman   | cust_name      | city     |\par
++------------+----------------+----------+\par
+| James Hoog | Nick Rimando   | New York |\par
+| Mc Lyon    | Fabian Johnson | Paris    |\par
+| Nail Knite | Fabian Johnson | Paris    |\par
+| James Hoog | Brad Davis     | New York |\par
+| Pit Alex   | Julian Green   | London   |\par
++------------+----------------+----------+ \par
+\par
+
+\pard\sa160\sl259\slmult0\cf0 2) From the above tables write a SQL query to find the salesperson(s) and the customer(s) he handle. Return Customer Name, city, Salesman, commission.\par
+-> SELECT a.cust_name AS "Customer Name", \par
+a.city, b.name AS "Salesman", b.commission \par
+FROM customer a \par
+INNER JOIN salesman b \par
+ON a.salesman_id=b.salesman_id;\par
+\cf1 +----------------+------------+------------+------------+\par
+| Customer Name  | city       | Salesman   | commission |\par
++----------------+------------+------------+------------+\par
+| Nick Rimando   | New York   | James Hoog |       0.15 |\par
+| Jozy Altidor   | Moscow     | Paul Adam  |       0.13 |\par
+| Fabian Johnson | Paris      | Mc Lyon    |       0.14 |\par
+| Grahman Zusi   | California | Nail Knite |       0.13 |\par
+| Brad Davis     | New York   | James Hoog |       0.15 |\par
+| Julian Green   | London     | Nail Knite |       0.13 |\par
+| Geoff Cameron  | Berlin     | Lauson Hen |       0.12 |\par
++----------------+------------+------------+------------+ \par
+\par
+\cf0 3)\cf1  \cf0 From the above tables write a SQL query to find the details of an order. Return ord_no, ord_date, purch_amt, Customer Name, grade, Salesman, commission\par
+\par
+-> SELECT a.ord_no,a.ord_date,a.purch_amt,\par
+    b.cust_name AS "Customer Name", b.grade,\par
+    c.name AS "Salesman", c.commission\par
+    FROM orders a\par
+    INNER JOIN customer b\par
+    ON a.customer_id=b.customer_id\par
+    INNER JOIN salesman c\par
+    ON a.salesman_id=c.salesman_id;\par
+\par
+\cf1 +--------+------------+-----------+---------------+-------+------------+------------+\par
+| ord_no | ord_date   | purch_amt | Customer Name | grade | Salesman   | commission |\par
++--------+------------+-----------+---------------+-------+------------+------------+\par
+|  70001 | 2012-10-05 |     150.5 | Grahman Zusi  |   200 | Nail Knite |       0.13 |\par
+|  70002 | 2012-10-05 |     65.26 | Nick Rimando  |   100 | James Hoog |       0.15 |\par
+|  70004 | 2012-08-17 |     110.5 | Geoff Cameron |   100 | Lauson Hen |       0.12 |\par
+|  70005 | 2012-07-27 |    2400.6 | Brad Davis    |   200 | James Hoog |       0.15 |\par
+|  70007 | 2012-09-10 |     948.5 | Grahman Zusi  |   200 | Nail Knite |       0.13 |\par
+|  70008 | 2012-09-10 |      5760 | Nick Rimando  |   100 | James Hoog |       0.15 |\par
++--------+------------+-----------+---------------+-------+------------+------------+ \par
+\par
+\par
+\par
+\par
+\cf0 4) From the above tables write a SQL query to find those orders where order amount exists between 500 and 2000. Return ord_no, purch_amt, cust_name, city.\par
+->SELECT  a.ord_no,a.purch_amt,\par
+   b.cust_name,b.city \par
+   FROM orders a,customer b \par
+   WHERE a.customer_id=b.customer_id \par
+   AND a.purch_amt BETWEEN 500 AND 2000;\par
+\par
+\cf1 +--------+-----------+--------------+------------+\par
+| ord_no | purch_amt | cust_name    | city       |\par
++--------+-----------+--------------+------------+\par
+|  70007 |     948.5 | Grahman Zusi | California |\par
++--------+-----------+--------------+------------+ \par
+\par
+\par
+\cf0 5) From the above tables write a SQL query to display the cust_name, customer city, grade, Salesman, salesman city. The result should be ordered by ascending on customer_id\par
+\par
+-> SELECT a.cust_name,a.city,a.grade, \par
+    b.name AS "Salesman",b.city \par
+    FROM customer a \par
+    LEFT JOIN salesman b \par
+    ON a.salesman_id=b.salesman_id \par
+    order by a.customer_id;\par
+\par
+\par
+\cf1 +----------------+------------+-------+------------+----------+\par
+| cust_name      | city       | grade | Salesman   | city     |\par
++----------------+------------+-------+------------+----------+\par
+| Nick Rimando   | New York   |   100 | James Hoog | New York |\par
+| Jozy Altidor   | Moscow     |   200 | Paul Adam  | Rome     |\par
+| Fabian Johnson | Paris      |   300 | Mc Lyon    | Paris    |\par
+| Grahman Zusi   | California |   200 | Nail Knite | Paris    |\par
+| Brad Davis     | New York   |   200 | James Hoog | New York |\par
+| Julian Green   | London     |   300 | Nail Knite | Paris    |\par
+| Geoff Cameron  | Berlin     |   100 | Lauson Hen | San Jose |\par
++----------------+------------+-------+------------+----------+ \par
+\par
+\cf0 6)Write a SQL statement to make a list in ascending order for the salesmen who works either for one or more customer or not yet join under any of the customers.\par
+\par
+-> SELECT a.cust_name,a.city,a.grade, \par
+    b.name AS "Salesman", b.city \par
+    FROM customer a \par
+    RIGHT OUTER JOIN salesman b \par
+    ON b.salesman_id=a.salesman_id \par
+    ORDER BY b.salesman_id;\par
+\par
+\cf1 +----------------+------------+-------+------------+----------+\par
+| cust_name      | city       | grade | Salesman   | city     |\par
++----------------+------------+-------+------------+----------+\par
+| Brad Davis     | New York   |   200 | James Hoog | New York |\par
+| Nick Rimando   | New York   |   100 | James Hoog | New York |\par
+| Julian Green   | London     |   300 | Nail Knite | Paris    |\par
+| Grahman Zusi   | California |   200 | Nail Knite | Paris    |\par
+| Geoff Cameron  | Berlin     |   100 | Lauson Hen | San Jose |\par
+| NULL           | NULL       |  NULL | Pit Alex   | London   |\par
+| Fabian Johnson | Paris      |   300 | Mc Lyon    | Paris    |\par
+| Jozy Altidor   | Moscow     |   200 | Paul Adam  | Rome     |\par
++----------------+------------+-------+------------+----------+ \par
+\par
+\cf0 7)Write a SQL statement to make a report with customer name, city, order no., order date, purchase amount for those customers from the existing list who placed one or more orders or which order(s) have been placed by the customer who is not on the list.\par
+\par
+-> SELECT a.cust_name AS "Customer Name",\par
+    a.city,\par
+    b.ord_no,\par
+    b.ord_date,\par
+    b.purch_amt\par
+    FROM customer a\par
+    RIGHT JOIN orders b\par
+    ON a.customer_id= b.customer_id;\par
+\par
+\cf1 +---------------+------------+--------+------------+-----------+\par
+| Customer Name | city       | ord_no | ord_date   | purch_amt |\par
++---------------+------------+--------+------------+-----------+\par
+| Grahman Zusi  | California |  70001 | 2012-10-05 |     150.5 |\par
+| Nick Rimando  | New York   |  70002 | 2012-10-05 |     65.26 |\par
+| Geoff Cameron | Berlin     |  70004 | 2012-08-17 |     110.5 |\par
+| Brad Davis    | New York   |  70005 | 2012-07-27 |    2400.6 |\par
+| Grahman Zusi  | California |  70007 | 2012-09-10 |     948.5 |\par
+| Nick Rimando  | New York   |  70008 | 2012-09-10 |      5760 |\par
+| NULL          | NULL       |  70009 | 2012-09-10 |    270.65 |\par
++---------------+------------+--------+------------+-----------+  \par
+\par
+\par
+\par
+\cf0\par
+\cf1\par
+\par
+
+\pard\sa200\sl276\slmult1\par
+\cf0\par
+\par
+\par
+\par
+\par
+}
+ 
