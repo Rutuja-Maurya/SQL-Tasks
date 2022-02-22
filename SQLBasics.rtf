@@ -1,0 +1,404 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\colortbl ;\red0\green77\blue187;}
+{\*\generator Riched20 10.0.19041}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\b\f0\fs32\lang9                                          SQL Basics   \par
+\tab\tab\tab\tab\tab\tab    \b0\fs24 Submitted By- Rutuja Maurya\b\fs32\par
+\par
+#CREATE DATABASE\b0\fs22\par
+\fs24 mysql> create database Demo;\par
+mysql> use Demo;\par
+\b\fs22\par
+\fs28 #CREATE TABLE\b0\fs22\par
+\fs24 mysql> CREATE TABLE Employee1(empid int(10) NOT NULL, empname varchar(20) NOT NULL, city varchar(20), salary int(10), PRIMARY KEY (empid));\par
+\fs22 Query OK, 0 rows affected, 2 warnings (0.04 sec)\par
+\fs24\par
+mysql> describe Employee1;\par
+\cf1\fs22 +---------+-------------+------+-----+---------+-------+\par
+| Field   | Type        | Null | Key | Default | Extra |\par
++---------+-------------+------+-----+---------+-------+\par
+| empid   | int         | NO   | PRI | NULL    |       |\par
+| empname | varchar(20) | NO   |     | NULL    |       |\par
+| city    | varchar(20) | YES  |     | NULL    |       |\par
+| salary  | int         | YES  |     | NULL    |       |\par
++---------+-------------+------+-----+---------+-------+\par
+\cf0 4 rows in set (0.01 sec)\par
+\par
+\b\fs28 # INSERT\b0\fs22\par
+\fs24 mysql> insert into Employee1(empid,empname,city,salary) values (01,'Rutuja','Pune',20000);\par
+\fs22 Query OK, 1 row affected (0.01 sec)\par
+\par
+mysql> select * from Employee1;\par
+\cf1 +-------+---------+------+--------+\par
+| empid | empname | city | salary |\par
++-------+---------+------+--------+\par
+|     1 | Rutuja  | Pune |  20000 |\par
++-------+---------+------+--------+\par
+\cf0 1 row in set (0.00 sec)\par
+\par
+\b\fs28 #INSERTION\par
+\b0\fs24 mysql> insert into Employee1(empid,empname,city,salary) values (02,'Shruti','Pune',30000);\par
+Query OK, 1 row affected (0.01 sec)\par
+\par
+mysql> insert into Employee1(empid,empname,city,salary) values (03,'Mahesh','Mumbai',35000);\par
+Query OK, 1 row affected (0.01 sec)\par
+\par
+mysql> insert into Employee1(empid,empname,city,salary) values (04,'Shreyas','Pune',25000);\par
+Query OK, 1 row affected (0.01 sec)\par
+\par
+mysql> insert into Employee1(empid,empname,city,salary) values (05,'Pravita','Pune',30000);\par
+Query OK, 1 row affected (0.01 sec)\par
+\fs22\par
+\fs24 mysql> select * from Employee1;\par
+\cf1\fs22 +-------+---------+--------+--------+\par
+| empid | empname | city   | salary |\par
++-------+---------+--------+--------+\par
+|     1 | Rutuja  | Pune   |  20000 |\par
+|     2 | Shruti  | Pune   |  30000 |\par
+|     3 | Mahesh  | Mumbai |  35000 |\par
+|     4 | Shreyas | Pune   |  25000 |\par
+|     5 | Pravita | Pune   |  30000 |\par
++-------+---------+--------+--------+\par
+\cf0 5 rows in set (0.00 sec)\par
+\par
+\b\fs28 # UPDATE\b0\par
+\fs24 mysql> update Employee1 set city='Mumbai' where empid=2;\fs22\par
+Query OK, 1 row affected (0.01 sec)\par
+Rows matched: 1  Changed: 1  Warnings: 0\par
+\par
+mysql> select * from Employee1;\par
+\cf1 +-------+---------+--------+--------+\par
+| empid | empname | city   | salary |\par
++-------+---------+--------+--------+\par
+|     1 | Rutuja  | Pune   |  20000 |\par
+|     2 | Shruti  | Mumbai |  30000 |\par
+|     3 | Mahesh  | Mumbai |  35000 |\par
+|     4 | Shreyas | Pune   |  25000 |\par
+|     5 | Pravita | Pune   |  30000 |\par
++-------+---------+--------+--------+\par
+\cf0 5 rows in set (0.01 sec)\par
+\par
+\fs24 mysql> insert into Employee1(empid,empname,city,salary) values (06,'Preeti','Mumbai',30000);\par
+Query OK, 1 row affected (0.01 sec)\par
+\par
+mysql> insert into Employee1(empid,empname,city,salary) values (07,'Suraj','Pune',35000);\par
+Query OK, 1 row affected (0.01 sec)\par
+\fs22\par
+mysql> select * from Employee1;\par
+\cf1 +-------+---------+--------+--------+\par
+| empid | empname | city   | salary |\par
++-------+---------+--------+--------+\par
+|     1 | Rutuja  | Pune   |  20000 |\par
+|     2 | Shruti  | Mumbai |  30000 |\par
+|     3 | Mahesh  | Mumbai |  35000 |\par
+|     4 | Shreyas | Pune   |  25000 |\par
+|     5 | Pravita | Pune   |  30000 |\par
+|     6 | Preeti  | Mumbai |  30000 |\par
+|     7 | Suraj   | Pune   |  35000 |\par
++-------+---------+--------+--------+\par
+\cf0 7 rows in set (0.00 sec)\par
+\fs28\par
+\b # DELETE\b0\par
+\fs24 mysql> delete from Employee1 where empid = 7;\par
+\fs22 Query OK, 1 row affected (0.01 sec)\par
+\par
+mysql> select * from Employee1;\par
+\cf1 +-------+---------+--------+--------+\par
+| empid | empname | city   | salary |\par
++-------+---------+--------+--------+\par
+|     1 | Rutuja  | Pune   |  20000 |\par
+|     2 | Shruti  | Mumbai |  30000 |\par
+|     3 | Mahesh  | Mumbai |  35000 |\par
+|     4 | Shreyas | Pune   |  25000 |\par
+|     5 | Pravita | Pune   |  30000 |\par
+|     6 | Preeti  | Mumbai |  30000 |\par
++-------+---------+--------+--------+\par
+\cf0 6 rows in set (0.01 sec)\par
+\par
+\b\fs28 # SELECT DISTINCT\b0\par
+\fs24 mysql> select distinct city from Employee1;\par
+\cf1\fs22 +--------+\par
+| city   |\par
++--------+\par
+| Pune   |\par
+| Mumbai |\par
++--------+\par
+\cf0 2 rows in set (0.01 sec)\par
+\par
+\b\fs28 # WHERE Clause , AND operator\b0\fs22\par
+mysql> select * from Employee1 where city = "Mumbai" and salary = 30000;\par
++-------+---------+--------+--------+\par
+| empid | empname | city   | salary |\par
++-------+---------+--------+--------+\par
+|     2 | Shruti  | Mumbai |  30000 |\par
+|     6 | Preeti  | Mumbai |  30000 |\par
++-------+---------+--------+--------+\par
+2 rows in set (0.00 sec)\par
+\fs28\par
+\b #OR operator\b0\par
+\fs24 mysql> select * from Employee1 where city = "Pune" or city = "Mumbai";\par
+\cf1\fs22 +-------+---------+--------+--------+\par
+| empid | empname | city   | salary |\par
++-------+---------+--------+--------+\par
+|     1 | Rutuja  | Pune   |  20000 |\par
+|     2 | Shruti  | Mumbai |  30000 |\par
+|     3 | Mahesh  | Mumbai |  35000 |\par
+|     4 | Shreyas | Pune   |  25000 |\par
+|     5 | Pravita | Pune   |  30000 |\par
+|     6 | Preeti  | Mumbai |  30000 |\par
++-------+---------+--------+--------+\par
+\cf0 6 rows in set (0.00 sec)\par
+\par
+\b\fs28 # NOT operator\b0\par
+\fs24 mysql> select * from Employee1 where not city = "Mumbai";\par
+\cf1\fs22 +-------+---------+------+--------+\par
+| empid | empname | city | salary |\par
++-------+---------+------+--------+\par
+|     1 | Rutuja  | Pune |  20000 |\par
+|     4 | Shreyas | Pune |  25000 |\par
+|     5 | Pravita | Pune |  30000 |\par
++-------+---------+------+--------+\cf0\par
+3 rows in set (0.00 sec)\par
+\fs28\par
+\b # WILDCARDS\b0\fs22\par
+ 1) %\par
+ \fs24 mysql> select * from Employee1 where empname like 'S%';\fs22\par
+\cf1 +-------+---------+--------+--------+\par
+| empid | empname | city   | salary |\par
++-------+---------+--------+--------+\par
+|     2 | Shruti  | Mumbai |  30000 |\par
+|     4 | Shreyas | Pune   |  25000 |\par
++-------+---------+--------+--------+\par
+\cf0 2 rows in set (0.00 sec)\par
+\par
+ \fs24 2) mysql> select * from Employee1 where empname like '%es%';\par
+\cf1\fs22 +-------+---------+--------+--------+\par
+| empid | empname | city   | salary |\par
++-------+---------+--------+--------+\par
+|     3 | Mahesh  | Mumbai |  35000 |\par
++-------+---------+--------+--------+\par
+\cf0 1 row in set (0.00 sec)\par
+\fs24\par
+3) mysql> select * from Employee1 where empname like '%re%';\par
+\cf1\fs22 +-------+---------+--------+--------+\par
+| empid | empname | city   | salary |\par
++-------+---------+--------+--------+\par
+|     4 | Shreyas | Pune   |  25000 |\par
+|     6 | Preeti  | Mumbai |  30000 |\par
+\cf0 +-------+---------+--------+--------+\par
+2 rows in set (0.00 sec)\par
+\par
+\fs24 4)mysql> select * from Employee1 where city like '_umbai';\par
+\cf1\fs22 +-------+---------+--------+--------+\par
+| empid | empname | city   | salary |\par
++-------+---------+--------+--------+\par
+|     2 | Shruti  | Mumbai |  30000 |\par
+|     3 | Mahesh  | Mumbai |  35000 |\par
+|     6 | Preeti  | Mumbai |  30000 |\par
++-------+---------+--------+--------+\par
+\cf0\par
+\b\fs28 # ORDER BY\b0\par
+\fs24 mysql> select * from Employee1 order by empname;\par
+\cf1\fs22 +-------+---------+--------+--------+\par
+| empid | empname | city   | salary |\par
++-------+---------+--------+--------+\par
+|     3 | Mahesh  | Mumbai |  35000 |\par
+|     5 | Pravita | Pune   |  30000 |\par
+|     6 | Preeti  | Mumbai |  30000 |\par
+|     1 | Rutuja  | Pune   |  20000 |\par
+|     4 | Shreyas | Pune   |  25000 |\par
+|     2 | Shruti  | Mumbai |  30000 |\par
++-------+---------+--------+--------+\par
+\cf0 6 rows in set (0.00 sec)\par
+\par
+\fs24 mysql> select * from Employee1 order by empname desc;\par
+\cf1\fs22 +-------+---------+--------+--------+\par
+| empid | empname | city   | salary |\par
++-------+---------+--------+--------+\par
+|     2 | Shruti  | Mumbai |  30000 |\par
+|     4 | Shreyas | Pune   |  25000 |\par
+|     1 | Rutuja  | Pune   |  20000 |\par
+|     6 | Preeti  | Mumbai |  30000 |\par
+|     5 | Pravita | Pune   |  30000 |\par
+|     3 | Mahesh  | Mumbai |  35000 |\par
++-------+---------+--------+--------+\par
+\cf0 6 rows in set (0.00 sec)\par
+\b\fs28\par
+# GROUP BY \par
+\b0\fs24 mysql> select count(empid), city from Employee1 group by city;\par
+\cf1\fs22 +--------------+--------+\par
+| count(empid) | city   |\par
++--------------+--------+\par
+|            3 | Pune   |\par
+|            3 | Mumbai |\par
++--------------+--------+\par
+\cf0 2 rows in set (0.00 sec)\par
+\par
+\b\fs28 # AGGREGATE FUNCTIONS\par
+\fs22 # MIN()\b0\par
+\fs24 mysql> select min(salary) as minsal from Employee1;\par
+\cf1\fs22 +--------+\par
+| minsal |\par
++--------+\par
+|  20000 |\par
++--------+\par
+\cf0 1 row in set (0.01 sec)\par
+\par
+\b # MAX()\b0\par
+\fs24 mysql> select max(salary) as maxsal from Employee1;\par
+\cf1\fs22 +--------+\par
+| maxsal |\par
++--------+\par
+|  35000 |\par
++--------+\par
+\cf0 1 row in set (0.00 sec)\par
+\par
+\b # AVG()\b0\par
+\fs24 mysql> select avg(salary) from Employee1;\par
+\cf1\fs22 +-------------+\par
+| avg(salary) |\par
++-------------+\par
+|  28333.3333 |\par
++-------------+\par
+\cf0 1 row in set (0.00 sec)\par
+\par
+\b # SUM()\b0\par
+\fs24 mysql> select sum(salary) from Employee1;\par
+\cf1\fs22 +-------------+\par
+| sum(salary) |\par
++-------------+\par
+|      170000 |\par
++-------------+\par
+\cf0 1 row in set (0.00 sec)\par
+\par
+\b\fs24 # Count()\par
+\b0 mysql> select count(empid) from Employee1;\par
+\cf1\fs22 +--------------+\par
+| count(empid) |\par
++--------------+\par
+|            6 |\par
++--------------+\par
+\cf0 1 row in set (0.01 sec)\par
+\par
+\b\fs28 # STRING FUNCTIONS\par
+\b0\fs24 1) char_len\par
+mysql> select char_length(empname) as lengthofname from Employee1;\par
+\cf1\fs22 +--------------+\par
+| lengthofname |\par
++--------------+\par
+|            6 |\par
+|            6 |\par
+|            6 |\par
+|            7 |\par
+|            7 |\par
+|            6 |\par
++--------------+\par
+\cf0 6 rows in set (0.00 sec)\par
+\par
+\fs24 2) concat\par
+mysql> select concat(empname, " ",city, " ",salary) as empquickdetails from Employee1;\par
+\cf1\fs22 +---------------------+\par
+| empquickdetails     |\par
++---------------------+\par
+| Rutuja Pune 20000   |\par
+| Shruti Mumbai 30000 |\par
+| Mahesh Mumbai 35000 |\par
+| Shreyas Pune 25000  |\par
+| Pravita Pune 30000  |\par
+| Preeti Mumbai 30000 |\par
++---------------------+\par
+\cf0 6 rows in set (0.00 sec)\par
+\par
+\fs24 3) locate\par
+\cf1 mysql> select empname, locate("a", empname) from Employee1;\par
+\fs22 +---------+----------------------+\par
+| empname | locate("a", empname) |\par
++---------+----------------------+\par
+| Rutuja  |                    6 |\par
+| Shruti  |                    0 |\par
+| Mahesh  |                    2 |\par
+| Shreyas |                    6 |\par
+| Pravita |                    3 |\par
+| Preeti  |                    0 |\par
++---------+----------------------+\par
+\cf0 6 rows in set (0.00 sec)\par
+\par
+\fs24 4) lcase\par
+mysql> select lcase(empname) as lowercasename from Employee1;\par
+\cf1\fs22 +---------------+\par
+| lowercasename |\par
++---------------+\par
+| rutuja        |\par
+| shruti        |\par
+| mahesh        |\par
+| shreyas       |\par
+| pravita       |\par
+| preeti        |\par
++---------------+\par
+\cf0 6 rows in set (0.01 sec)\par
+\par
+\fs24 5) ucase\par
+mysql> select ucase(city) as uppercasecity from Employee1;\par
+\cf1\fs22 +---------------+\par
+| uppercasecity |\par
++---------------+\par
+| PUNE          |\par
+| MUMBAI        |\par
+| MUMBAI        |\par
+| PUNE          |\par
+| PUNE          |\par
+| MUMBAI        |\par
++---------------+\par
+\cf0 6 rows in set (0.00 sec)\par
+\par
+\par
+\b\fs28 #Date Function\par
+\b0\fs22\par
+\fs24 mysql> select * from Employee1;\par
+\fs22 +-------+---------+--------+--------+-----------------+\par
+| empid | empname | city   | salary | date_of_joining |\par
++-------+---------+--------+--------+-----------------+\par
+|     1 | Rutuja  | Pune   |  20000 | 2022-02-14      |\par
+|     2 | shruti  | Mumbai |  30000 | 2022-02-15      |\par
+|     3 | Mahesh  | Mumbai |  35000 | 2021-03-15      |\par
+|     4 | Shreyas | Pune   |  25000 | 2021-03-15      |\par
+|     5 | Pravita | Pune   |  30000 | 2022-02-18      |\par
+|     6 | Preeti  | Mumbai |  30000 | 2022-02-19      |\par
+|     7 | Suraj   | Pune   |  35000 | 2022-08-10      |\par
++-------+---------+--------+--------+-----------------+\par
+\par
+\fs24 # DATEDIFF\par
+mysql> select datediff("2022-02-15", "2021-03-15");\par
+\cf1\fs22 +--------------------------------------+\par
+| DATEDIFF("2022-02-15", "2021-03-15") |\par
++--------------------------------------+\par
+|                                  337 |\par
++--------------------------------------+\par
+\cf0 1 row in set (0.00 sec)\par
+\par
+\fs24 # CURRENT_DATE()\par
+mysql> SELECT CURRENT_DATE();\par
+\cf1\fs22 +----------------+\par
+| CURRENT_DATE() |\par
++----------------+\par
+| 2022-02-16     |\par
++----------------\par
+\par
+\par
+\par
+\par
+\cf0\b\fs28 #Query to find all details of employees whose salary is greater than or equal to 25,000.\par
+\par
+\b0\fs24 mysql> select empname from Employee1 where salary>=25000;\par
+\cf1 +---------+\par
+| empname |\par
++---------+\par
+| shruti  |\par
+| Mahesh  |\par
+| Shreyas |\par
+| Pravita |\par
+| Preeti  |\par
+| Suraj   |\par
++---------+\par
+\cf0\fs22\par
+}
+ 
